@@ -55,13 +55,6 @@ H=$((elapsed % 24))
 D=$(( ( elapsed /= 24 ) % 7))
 W=$((elapsed / 7))
 
-# elapsed=$(( (now-new_last_bought) / 3600))
-# H=$((elapsed % 24))
-# D=$(( ( elapsed /= 24 ) % 7))
-# elapsed=$((elapsed-D))
-# W=$((elapsed/7))
-# elapsed=$((elapsed-W))
-
 if [[ $W -le 0 && $D -le 0 && $H -eq 1 ]]; then string="$H hour"
 elif [[ $W -le 0 && $D -le 0 && $H -gt 1 ]]; then string="$H hours"
 elif [[ $W -le 0 && $D -eq 1 && $H -le 0 ]]; then string="$D day" 
