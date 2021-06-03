@@ -1,5 +1,5 @@
 # Written by Hashim Aziz 27/05/21
-# With contributions from Giacomo1968, Glenn Jackman and meuh
+# With contributions from Giacomo1968, glenn jackman and meuh
 
 #!/bin/bash
 set -e
