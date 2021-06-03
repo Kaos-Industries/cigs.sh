@@ -55,33 +55,19 @@ H=$((elapsed % 24))
 D=$(( ( elapsed /= 24 ) % 7))
 W=$((elapsed / 7))
 
-if [[ $W -le 0 && $D -le 0 && $H -eq 1 ]]; then string="$H hour"
-elif [[ $W -le 0 && $D -le 0 && $H -gt 1 ]]; then string="$H hours"
-elif [[ $W -le 0 && $D -eq 1 && $H -le 0 ]]; then string="$D day" 
-elif [[ $W -le 0 && $D -eq 1 && $H -eq 1 ]]; then string="$D day and $H hour"
-elif [[ $W -le 0 && $D -eq 1 && $H -gt 1 ]]; then string="$D day and $H hours"   
-elif [[ $W -le 0 && $D -gt 1 && $H -le 0 ]]; then string="$D days"
-elif [[ $W -le 0 && $D -gt 1 && $H -eq 1 ]]; then string="$D days and $H hour"
-elif [[ $W -le 0 && $D -gt 1 && $H -gt 1 ]]; then string="$D days and $H hours"
-elif [[ $W -eq 1 && $D -le 0 && $H -le 0 ]]; then string="$W week"
-elif [[ $W -eq 1 && $D -le 0 && $H -eq 1 ]]; then string="$W week and $H hour"
-elif [[ $W -eq 1 && $D -le 0 && $H -gt 1 ]]; then string="$W week and $H hours"
-elif [[ $W -eq 1 && $D -eq 1 && $H -le 0 ]]; then string="$W week and $D day"
-elif [[ $W -eq 1 && $D -gt 1 && $H -le 0 ]]; then string="$W week and $D days"
-elif [[ $W -eq 1 && $D -eq 1 && $H -eq 1 ]]; then string="$W week, $D day and $H hour"
-elif [[ $W -eq 1 && $D -eq 1 && $H -gt 1 ]]; then string="$W week, $D day and $H hours"
-elif [[ $W -eq 1 && $D -gt 1 && $H -eq 1 ]]; then string="$W week, $D days and $H hour"
-elif [[ $W -eq 1 && $D -gt 1 && $H -gt 1 ]]; then string="$W week, $D days and $H hours"
-elif [[ $W -gt 1 && $D -le 0 && $H -le 0 ]]; then string="$W weeks"
-elif [[ $W -gt 1 && $D -le 0 && $H -eq 1 ]]; then string="$W weeks and $H hour"
-elif [[ $W -gt 1 && $D -le 0 && $H -gt 1 ]]; then string="$W weeks and $H hours"
-elif [[ $W -gt 1 && $D -eq 1 && $H -le 0 ]]; then string="$W weeks and $D day"
-elif [[ $W -gt 1 && $D -gt 1 && $H -le 0 ]]; then string="$W weeks and $D days"
-elif [[ $W -gt 1 && $D -eq 1 && $H -eq 1 ]]; then string="$W weeks, $D day and $H hour"
-elif [[ $W -gt 1 && $D -eq 1 && $H -gt 1 ]]; then string="$W weeks, $D day and $H hours"
-elif [[ $W -gt 1 && $D -gt 1 && $H -eq 1 ]]; then string="$W weeks, $D days and $H hour"
-elif [[ $W -gt 1 && $D -gt 1 && $H -gt 1 ]]; then string="$W weeks, $D days and $H hours"
-fi
+ws=s; [ $W = 1 ] && ws=
+ds=s; [ $D = 1 ] && ds=
+hs=s; [ $H = 1 ] && hs=
+case $W+$D+$H in
+0+0+0 ) string="$H hour$hs" ;;
+0+0+* ) string="$H hour$hs" ;;
+0+*+0 ) string="$D day$ds"  ;;
+0+*+* ) string="$D day$ds and $H hour$hs" ;;
+*+0+0 ) string="$W week$ws" ;;
+*+0+* ) string="$W week$ws and $H hour$hs" ;;
+*+*+0 ) string="$W week$ws and $D day$ds" ;;
+*+*+* ) string="$W week$ws, $D day$ds and $H hour$hs" ;;
+esac
 
 colour1='\033[0;31m'
 colour2='\033[0;32m'
